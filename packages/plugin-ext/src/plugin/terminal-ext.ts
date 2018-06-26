@@ -67,7 +67,7 @@ export class TerminalServiceExtImpl implements TerminalServiceExt {
 
 export class TerminalExtImpl implements Terminal {
 
-    _processId: Thenable<number>;
+    _processId: PromiseLike<number>;
 
     constructor(private readonly proxy: TerminalServiceMain, readonly name: string) { }
 
