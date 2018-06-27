@@ -22,6 +22,9 @@ import { TerminalWidget, TerminalWidgetOptions } from "@theia/terminal/lib/brows
 import { RPCProtocol } from "../../api/rpc-protocol";
 import { ApplicationShell } from "@theia/core/lib/browser";
 
+/**
+ * Plugin api service allows working with terminal emulator.
+ */
 export class TerminalServiceMainImpl implements TerminalServiceMain {
 
     private readonly terminalService: TerminalService;
@@ -37,7 +40,7 @@ export class TerminalServiceMainImpl implements TerminalServiceMain {
         this.extProxy = rpc.getProxy(MAIN_RPC_CONTEXT.TERMINAL_EXT);
     }
 
-    $createTerminal(options: TerminalOptions): Promise<number> {
+    async $createTerminal(options: TerminalOptions): Promise<number> {
         const counter = this.terminalNumber++;
         const termWidgetOptions: TerminalWidgetOptions = {
             title: options.name,
@@ -49,29 +52,18 @@ export class TerminalServiceMainImpl implements TerminalServiceMain {
             useServerTitle: false,
             id: this.TERM_ID_PREFIX + counter
         };
-        return new Promise<number>((resolve, reject) => {
-            this.terminalService.newTerminal(termWidgetOptions)
-                .then(termWidget => {
-                    termWidget.start()
-                        .then(id => {
-                            if (id) {
-                                this.terminals.set(id, termWidget);
-                                termWidget.onTerminalDidClose(() => {
-                                    this.extProxy.$terminalClosed(id);
-                                });
-                            }
-                            resolve(id);
-                        })
-                        .catch(err => {
-                            console.log("Failed to start terminal");
-                            reject(err);
-                        });
-                })
-                .catch(err => {
-                    console.log("Failed to create terminal widget with predefined options ", err);
-                    reject(err);
-                });
-        });
+        let id: number;
+        try {
+            const termWidget = await this.terminalService.newTerminal(termWidgetOptions);
+            id = await termWidget.start();
+            this.terminals.set(id, termWidget);
+            termWidget.onTerminalDidClose(() => {
+                this.extProxy.$terminalClosed(id);
+            });
+        } catch (error) {
+            return Promise.reject("Failed to create terminal " + error);
+        }
+        return id;
     }
 
     $sendText(id: number, text: string, addNewLine?: boolean): void {

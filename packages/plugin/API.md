@@ -187,7 +187,7 @@ const terminal = theia.window.createTerminal("Bash terminal", "/bin/bash", shell
 ```
 
 Where are:
- - first argument - terminal representation on the UI.
+ - first argument - terminal's name.
  - second argument - path to the executable shell.
  - third argument - arguments to configure executable shell.
 
