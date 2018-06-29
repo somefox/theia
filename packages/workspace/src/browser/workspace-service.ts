@@ -80,6 +80,17 @@ export class WorkspaceService implements FrontendApplicationContribution {
             this.server.setRoot(this._root.uri);
         }
     }
+    hasWorkspace: boolean = false;
+    async onStart() {
+        const allWorkspace = await this.recentRoots();
+        if (allWorkspace.length > 0) {
+            this.hasWorkspace = true;
+        }
+    }
+    async recentRoots(): Promise<string[]> {
+        const allRoots: string[] = await this.server.getRecentRoots();
+        return allRoots;
+    }
 
     /**
      * Returns `true` if current workspace root is set.

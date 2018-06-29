@@ -80,10 +80,35 @@ export class DefaultWorkspaceServer implements WorkspaceServer {
 
     async setRoot(uri: string): Promise<void> {
         this.root = new Deferred();
+        const listUri: string[] = [];
+        const oldListUri = await this.getRecentRoots();
+        listUri.push(uri);
+        if (oldListUri) {
+            oldListUri.forEach(element => {
+                // Store the new recentRoots as the first one.
+                // Remove duplicate
+                if (element !== uri && element.length > 0) {
+                    listUri.push(element);
+                }
+            });
+        }
         this.root.resolve(uri);
         this.writeToUserHome({
-            recentRoots: [uri]
+            recentRoots: listUri
         });
+    }
+
+    async getRecentRoots(): Promise<string[]> {
+        const listUri: string[] = [];
+        const data = await this.readFromUserHome();
+        if (data && data.recentRoots) {
+            data.recentRoots.forEach(element => {
+                if (element.length > 0) {
+                    listUri.push(element);
+                }
+            });
+        }
+        return listUri;
     }
 
     protected async getRootURIFromCli(): Promise<string | undefined> {

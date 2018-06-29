@@ -32,4 +32,9 @@ export interface WorkspaceServer {
      */
     setRoot(uri: string): Promise<void>;
 
+    /**
+     * Returns list of recents opened workspace as a string []
+     */
+    getRecentRoots(): Promise<string[]>
+
 }
