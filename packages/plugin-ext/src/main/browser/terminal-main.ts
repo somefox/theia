@@ -61,7 +61,7 @@ export class TerminalServiceMainImpl implements TerminalServiceMain {
                 this.extProxy.$terminalClosed(id);
             });
         } catch (error) {
-            return Promise.reject("Failed to create terminal " + error);
+            throw new Error("Failed to create terminal. Cause: " + error);
         }
         return id;
     }
