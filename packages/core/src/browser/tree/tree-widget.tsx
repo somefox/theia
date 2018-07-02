@@ -213,7 +213,7 @@ export class TreeWidget extends ReactWidget implements StatefulWidget {
     protected doToggle(event: React.MouseEvent<HTMLElement>) {
         const nodeId = event.currentTarget.getAttribute('data-node-id');
         if (nodeId) {
-            const node = this.model.getNode(nodeId || undefined);
+            const node = this.model.getNode(nodeId);
             this.handleClickEvent(node, event);
         }
         event.stopPropagation();

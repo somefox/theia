@@ -15,11 +15,10 @@
  ********************************************************************************/
 
 import { interfaces, Container } from 'inversify';
-import { createTreeContainer, Tree, TreeImpl, TreeModel, TreeModelImpl } from "@theia/core/lib/browser";
+import { createTreeContainer, Tree, TreeImpl, TreeModel, TreeModelImpl, TreeWidget } from "@theia/core/lib/browser";
 import { FileTree } from "./file-tree";
 import { FileTreeModel } from './file-tree-model';
 import { FileTreeWidget } from "./file-tree-widget";
-import { TreeWidget } from '@theia/core/lib/browser/tree/tree-widget';
 
 export function createFileTreeContainer(parent: interfaces.Container): Container {
     const child = createTreeContainer(parent);

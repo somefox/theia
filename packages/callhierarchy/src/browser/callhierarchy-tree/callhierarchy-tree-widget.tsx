@@ -17,7 +17,7 @@
 import { injectable, inject } from "inversify";
 import { Message } from "@phosphor/messaging";
 import {
-    ContextMenuRenderer, NodeProps, TreeProps, TreeNode,
+    ContextMenuRenderer, TreeWidget, NodeProps, TreeProps, TreeNode,
     SelectableTreeNode, TreeModel, DockPanel
 } from "@theia/core/lib/browser";
 import { LabelProvider } from "@theia/core/lib/browser/label-provider";
@@ -27,7 +27,6 @@ import { CALLHIERARCHY_ID, Definition, Caller } from "../callhierarchy";
 import URI from "@theia/core/lib/common/uri";
 import { Location, Range, SymbolKind } from 'vscode-languageserver-types';
 import { EditorManager } from "@theia/editor/lib/browser";
-import { TreeWidget } from "@theia/core/lib/browser/tree/tree-widget";
 import * as React from "react";
 
 export const HIERARCHY_TREE_CLASS = 'theia-CallHierarchyTree';

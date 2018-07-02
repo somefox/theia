@@ -15,6 +15,7 @@
  ********************************************************************************/
 
 import {
+    TreeWidget,
     ContextMenuRenderer,
     CompositeTreeNode,
     ExpandableTreeNode,
@@ -37,7 +38,6 @@ import { Path, CancellationTokenSource, Emitter, Event } from "@theia/core";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 import { MEMORY_TEXT } from "./in-memory-text-resource";
 import { FileResourceResolver } from "@theia/filesystem/lib/browser";
-import { TreeWidget } from "@theia/core/lib/browser/tree/tree-widget";
 import * as React from "react";
 
 export interface SearchInWorkspaceResultNode extends ExpandableTreeNode, SelectableTreeNode {
@@ -349,7 +349,7 @@ export class SearchInWorkspaceResultTreeWidget extends TreeWidget {
     }
 
     protected renderRemoveButton(node: TreeNode): React.ReactNode {
-        return <span className="remove-node" onClick={e => this.remove(node, e)} ></span >;
+        return <span className="remove-node" onClick={e => this.remove(node, e)}></span>;
     }
 
     protected removeNode(node: TreeNode) {

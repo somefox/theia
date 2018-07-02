@@ -16,6 +16,7 @@
 
 import { injectable, inject } from 'inversify';
 import {
+    TreeWidget,
     TreeNode,
     NodeProps,
     SelectableTreeNode,
@@ -27,7 +28,6 @@ import {
 import { Message } from '@phosphor/messaging';
 import { Emitter } from '@theia/core';
 import { CompositeTreeNode } from '@theia/core/lib/browser';
-import { TreeWidget } from '@theia/core/lib/browser/tree/tree-widget';
 import * as React from "react";
 
 export interface OutlineSymbolInformationNode extends CompositeTreeNode, SelectableTreeNode, ExpandableTreeNode {

@@ -15,11 +15,10 @@
  ********************************************************************************/
 
 import { interfaces, Container } from 'inversify';
-import { createTreeContainer, Tree, TreeImpl, TreeModel, TreeModelImpl } from "@theia/core/lib/browser";
+import { createTreeContainer, Tree, TreeImpl, TreeModel, TreeModelImpl, TreeWidget } from "@theia/core/lib/browser";
 import { CallHierarchyTree } from "./callhierarchy-tree";
 import { CallHierarchyTreeModel } from './callhierarchy-tree-model';
 import { CallHierarchyTreeWidget } from "./callhierarchy-tree-widget";
-import { TreeWidget } from '@theia/core/lib/browser/tree/tree-widget';
 
 function createHierarchyTreeContainer(parent: interfaces.Container): Container {
     const child = createTreeContainer(parent);
